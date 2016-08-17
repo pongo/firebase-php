@@ -116,6 +116,9 @@ class FirebaseStubTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->_getErrorMessages('NO_DATA'), $response);
     }
 
+    /**
+     * @param string $errorCode
+     */
     private function _getErrorMessages($errorCode)
     {
         $errorMessages = Array(

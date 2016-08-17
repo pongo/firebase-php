@@ -43,7 +43,7 @@ class FirebaseStub implements FirebaseInterface
     }
 
     /**
-     * @param $token
+     * @param string $token
      * @return null
      */
     public function setToken($token)
@@ -52,7 +52,7 @@ class FirebaseStub implements FirebaseInterface
     }
 
     /**
-     * @param $baseURI
+     * @param string $baseURI
      * @return null
      */
     public function setBaseURI($baseURI)
@@ -62,7 +62,7 @@ class FirebaseStub implements FirebaseInterface
     }
 
     /**
-     * @param $seconds
+     * @param integer $seconds
      * @return null
      */
     public function setTimeOut($seconds)
@@ -82,8 +82,8 @@ class FirebaseStub implements FirebaseInterface
     }
 
     /**
-     * @param $path
-     * @param $data
+     * @param string $path
+     * @param string $data
      * @param $options
      * @return null
      */
@@ -93,8 +93,8 @@ class FirebaseStub implements FirebaseInterface
     }
 
     /**
-     * @param $path
-     * @param $data
+     * @param string $path
+     * @param string $data
      * @param $options
      * @return null
      */
@@ -114,7 +114,7 @@ class FirebaseStub implements FirebaseInterface
     }
 
     /**
-     * @param $path
+     * @param string $path
      * @param $options
      * @return null
      */
@@ -124,7 +124,7 @@ class FirebaseStub implements FirebaseInterface
     }
 
     /**
-     * @param $expectedResponse
+     * @param string $expectedResponse
      */
     public function setResponse($expectedResponse)
     {
@@ -202,8 +202,8 @@ class FirebaseStub implements FirebaseInterface
 class Error
 {
     /**
-     * @param $error
-     * @param $message
+     * @param boolean $error
+     * @param string $message
      */
     function __construct($error, $message)
     {
