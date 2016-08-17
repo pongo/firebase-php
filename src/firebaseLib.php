@@ -231,6 +231,9 @@ class FirebaseLib implements FirebaseInterface
         return $ch;
     }
 
+    /**
+     * @param string $path
+     */
     private function _writeData($path, $data, $method = 'PUT', $options = array())
     {
         $jsonData = json_encode($data);
@@ -252,6 +255,10 @@ class FirebaseLib implements FirebaseInterface
     // своя функция curl_exec, которая вручную обрабатывает 'location redirect'.
     // это нужно, т.к. на сервере отключен CURLOPT_FOLLOWLOCATION
     // решение частично отсюда http://stackoverflow.com/a/6918742/136559
+
+    /**
+     * @param resource $curl
+     */
     private function _my_curl_exec($curl)
     {
         $html = curl_exec($curl);
