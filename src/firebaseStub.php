@@ -13,7 +13,7 @@ require_once __DIR__ . '/firebaseInterface.php';
 class FirebaseStub implements FirebaseInterface
 {
     /**
-     * @var null
+     * @var null|string
      */
     private $_response = null;
 
@@ -71,8 +71,8 @@ class FirebaseStub implements FirebaseInterface
     }
 
     /**
-     * @param $path
-     * @param $data
+     * @param string $path
+     * @param string|null $data
      * @param $options
      * @return null
      */
