@@ -263,19 +263,17 @@ class FirebaseLib implements FirebaseInterface
         $html = curl_exec($curl);
         $status = curl_getinfo($curl);
 
-        if ($status['http_code'] !== 200) {
-            if ($status['http_code'] === 301 || $status['http_code'] === 302) {
-                list($header) = explode("\r\n\r\n", $html, 2);
-                $matches = array();
-                preg_match("/(Location:|URI:)[^(\n)]*/", $header, $matches);
-                $url = trim(str_replace($matches[1],"",$matches[0]));
-                $url_parsed = parse_url($url);
-                if (isset($url_parsed)) {
-                    curl_setopt($curl, CURLOPT_URL, $url);
-                    return $this->_my_curl_exec($curl);
-                }
-                return '';
+        if ($status['http_code'] === 301 || $status['http_code'] === 302) {
+            list($header) = explode("\r\n\r\n", $html, 2);
+            $matches = array();
+            preg_match("/(Location:|URI:)[^(\n)]*/", $header, $matches);
+            $url = trim(str_replace($matches[1], '', $matches[0]));
+            $url_parsed = parse_url($url);
+            if (isset($url_parsed)) {
+                curl_setopt($curl, CURLOPT_URL, $url);
+                return $this->_my_curl_exec($curl);
             }
+            return '';
         }
         return $html;
     }
