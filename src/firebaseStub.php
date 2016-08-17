@@ -155,7 +155,7 @@ class FirebaseStub implements FirebaseInterface
     }
 
     /**
-     * @param $data
+     * @param string|null $data
      * @return null
      */
     private function _getSetResponse($data)
