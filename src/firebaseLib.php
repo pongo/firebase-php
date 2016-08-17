@@ -181,7 +181,7 @@ class FirebaseLib implements FirebaseInterface
     {
         try {
             $ch = $this->_getCurlHandler($path, 'GET', $options);
-            $return = curl_exec($ch);
+            $return = $this->_my_curl_exec($ch);
         } catch (Exception $e) {
             $return = null;
         }
@@ -201,7 +201,7 @@ class FirebaseLib implements FirebaseInterface
     {
         try {
             $ch = $this->_getCurlHandler($path, 'DELETE', $options);
-            $return = curl_exec($ch);
+            $return = $this->_my_curl_exec($ch);
         } catch (Exception $e) {
             $return = null;
         }
@@ -227,7 +227,7 @@ class FirebaseLib implements FirebaseInterface
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $mode);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+//        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         return $ch;
     }
 
@@ -242,11 +242,36 @@ class FirebaseLib implements FirebaseInterface
             $ch = $this->_getCurlHandler($path, $method, $options);
             curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
-            $return = curl_exec($ch);
+            $return = $this->_my_curl_exec($ch);
         } catch (Exception $e) {
             $return = null;
         }
         return $return;
+    }
+
+    // своя функция curl_exec, которая вручную обрабатывает 'location redirect'.
+    // это нужно, т.к. на сервере отключен CURLOPT_FOLLOWLOCATION
+    // решение частично отсюда http://stackoverflow.com/a/6918742/136559
+    private function _my_curl_exec($curl)
+    {
+        $html = curl_exec($curl);
+        $status = curl_getinfo($curl);
+
+        if ($status['http_code'] !== 200) {
+            if ($status['http_code'] === 301 || $status['http_code'] === 302) {
+                list($header) = explode("\r\n\r\n", $html, 2);
+                $matches = array();
+                preg_match("/(Location:|URI:)[^(\n)]*/", $header, $matches);
+                $url = trim(str_replace($matches[1],"",$matches[0]));
+                $url_parsed = parse_url($url);
+                if (isset($url_parsed)) {
+                    curl_setopt($curl, CURLOPT_URL, $url);
+                    return $this->_my_curl_exec($curl);
+                }
+                return '';
+            }
+        }
+        return $html;
     }
 
 }

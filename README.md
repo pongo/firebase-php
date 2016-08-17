@@ -1,23 +1,17 @@
+Оригинал использует опцию CURL'а `CURLOPT_FOLLOWLOCATION`. Из-за нее на некоторых хостингах возникает ошибка:
+
+> Warning: curl_setopt() [function.curl-setopt]: CURLOPT_FOLLOWLOCATION cannot be activated when safe_mode is enabled or an open_basedir is set in
+
+В этом форке опция `CURLOPT_FOLLOWLOCATION` отключена. А редиректы обрабатываются другим способом.
+
+---
+
 # Firebase PHP Client
 
-[![Build Status](https://drone.io/github.com/ktamas77/firebase-php/status.png)](https://drone.io/github.com/ktamas77/firebase-php/latest)
-
-[![Build Status](https://semaphoreci.com/api/v1/ktamas77/firebase-php/branches/master/badge.svg)](https://semaphoreci.com/ktamas77/firebase-php)
-
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/ktamas77/firebase-php/badges/quality-score.png?s=239ffca76628b5a86540b9def187e2f8a199cb10)](https://scrutinizer-ci.com/g/ktamas77/firebase-php/)
+[![Build Status](https://drone.io/github.com/pongo/firebase-php/status.png)](https://drone.io/github.com/pongo/firebase-php/latest) [![Build Status](https://semaphoreci.com/api/v1/pongo/firebase-php/branches/master/badge.svg)](https://semaphoreci.com/pongo/firebase-php) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/pongo/firebase-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/pongo/firebase-php/?branch=master)
 
 Based on the [Firebase REST API](https://www.firebase.com/docs/rest-api.html).
 
-Available on [Packagist](https://packagist.org/packages/ktamas77/firebase-php).
-
-### Adding Firebase PHP to your project using Composer
-
-```bash
-cd <your_project>
-composer require ktamas77/firebase-php dev-master
-```
-
-More info about Composer at [getcomposer.org](http://getcomposer.org).
 
 ### Example
 ```php
